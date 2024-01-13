@@ -1,0 +1,31 @@
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+class ArrayGeneratorTest {
+
+    @Test
+    void generateArray_shouldGenerateCorrectLength() {
+        ArrayGenerator arrayGenerator = new ArrayGenerator();
+        arrayGenerator.generateArray(5, 10);
+
+        assertEquals(5, arrayGenerator.getNumbers().length);
+    }
+
+    @Test
+    void generateArray_shouldGenerateNumbersWithinRange() {
+        ArrayGenerator arrayGenerator = new ArrayGenerator();
+        arrayGenerator.generateArray(10, 50);
+        int[] numbers = arrayGenerator.getNumbers();
+
+        for (int number : numbers) {
+            assertTrue(number >= 0 && number <= 50);
+        }
+    }
+
+    @Test
+    void saveToFile_shouldSaveToFile() {
+        ArrayGenerator arrayGenerator = new ArrayGenerator();
+        arrayGenerator.generateArray(3, 100);
+        arrayGenerator.saveToFile("test_output.txt");
+    }
+}
