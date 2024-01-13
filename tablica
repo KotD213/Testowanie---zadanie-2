@@ -1,0 +1,61 @@
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+
+class ArrayGenerator {
+    private int[] numbers;
+
+    public ArrayGenerator()
+    }
+
+    public void generateArray(int length, int maxValue) {
+        numbers = new int[length];
+        for (int i = 0; i < length; i++) {
+            numbers[i] = (int) (Math.random() * (maxValue + 1));
+        }
+    }
+
+    public int[] getNumbers() {
+        return numbers;
+    }
+
+    public void displayArray() {
+        for (int number : numbers) {
+            System.out.println(number);
+        }
+    }
+
+    public void saveToFile(String fileName) {
+        try (FileWriter writer = new FileWriter(fileName)) {
+            for (int number : numbers) {
+                writer.write(Integer.toString(number) + "\n");
+            }
+            System.out.println("Data saved to " + fileName);
+        } catch (IOException e) {
+            System.err.println("Error while saving to file: " + e.getMessage());
+        }
+    }
+}
+
+public class ArrayGeneratorApp {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Enter the length of the array:");
+        int length = scanner.nextInt();
+
+        System.out.println("Enter the maximum value for generated numbers:");
+        int maxValue = scanner.nextInt();
+
+        ArrayGenerator arrayGenerator = new ArrayGenerator();
+        arrayGenerator.generateArray(length, maxValue);
+
+        System.out.println("Generated array:");
+        arrayGenerator.displayArray();
+
+        System.out.println("Enter a file name to save the array:");
+        String fileName = scanner.next();
+
+        arrayGenerator.saveToFile(fileName);
+    }
+}
